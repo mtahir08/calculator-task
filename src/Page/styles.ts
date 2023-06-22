@@ -7,8 +7,8 @@ const CalculatorWrapper = styled.div`
 
 const Display = styled.div`
   background-color: #F0F0F0;
-  border: 1psx solid black;
-  padding: 20px;
+  border: 1px solid #DCDCDC;
+  padding: 30px;
   text-align: right;
   margin: 10px 0;
 `;
