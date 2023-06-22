@@ -1,0 +1,36 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface CalculatorState {
+  input: string;
+  result: string;
+}
+
+const initialState: CalculatorState = {
+  input: "",
+  result: "",
+};
+
+const CalculatorSlice = createSlice({
+  name: "Calculator",
+  initialState,
+  reducers: {
+    setInput: (state, action: PayloadAction<string>) => {
+      state.input = action.payload;
+    },
+    clearInput: (state) => {
+      state.input = "";
+      state.result = "";
+    },
+    calculateResult: (state) => {
+      try {
+        state.result = eval(state.input).toString();
+      } catch (error) {
+        state.result = "Error";
+      }
+    },
+  },
+});
+
+export const { setInput, clearInput, calculateResult } = CalculatorSlice.actions;
+
+export default CalculatorSlice.reducer;
