@@ -15,7 +15,7 @@ const CalculatorSlice = createSlice({
   initialState,
   reducers: {
     setInput: (state, action: PayloadAction<string>) => {
-      state.input = action.payload;
+      state.input += action.payload;
     },
     clearInput: (state) => {
       state.input = "";
@@ -23,7 +23,12 @@ const CalculatorSlice = createSlice({
     },
     calculateResult: (state) => {
       try {
-        state.result = eval(state.input).toString();
+        if (state.input.includes("^")) {
+          const [base, exponent] = state.input.split("^");
+          state.result = Math.pow(Number(base), Number(exponent)).toString();
+        } else {
+          state.result = eval(state.input).toString();
+        }
       } catch (error) {
         state.result = "Error";
       }
@@ -31,6 +36,7 @@ const CalculatorSlice = createSlice({
   },
 });
 
-export const { setInput, clearInput, calculateResult } = CalculatorSlice.actions;
+export const { setInput, clearInput, calculateResult } =
+  CalculatorSlice.actions;
 
 export default CalculatorSlice.reducer;
